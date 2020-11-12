@@ -1,0 +1,20 @@
+# Contents of this secret will be loaded as environment variables into the container
+envSecretName: redash-secret
+
+redash:
+  cookieSecret: $(REDASH_COOKIE_SECRET)
+  secretKey: $(REDASH_SECRET_KEY)
+
+## Don't deploy PostgreSQL server, use AWS RDS instance instead
+postgresql:
+  enabled: false
+
+# TODO: # Alias
+externalPostgreSQL: postgresql://redash:$(REDASH_POSTGRES_PASSWORD)@analytics-redash-stage.c7828cfhilkf.us-east-1.rds.amazonaws.com:5432/redashdb
+
+# Don't deploy a Redis server, use our AWS instance instead
+redis:
+  enabled: false
+
+# TODO: Alias? RBAC
+externalRedis: redis://analytics-redis-redash-stage.yojb1s.ng.0001.use1.cache.amazonaws.com:6379
